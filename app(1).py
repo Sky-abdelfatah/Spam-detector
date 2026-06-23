@@ -18,7 +18,6 @@ st.set_page_config(
 # NLTK Data Download
 # =============================================
 nltk.download('punkt', quiet=True)
-nltk.download('punkt_tab', quiet=True)
 nltk.download('stopwords', quiet=True)
 
 # =============================================
@@ -127,20 +126,14 @@ if predict_btn:
             
             # Predict
             result = model.predict(vector_input)[0]
-            
-            # Get probability (now it should work!)
-            proba = model.predict_proba(vector_input)[0]
-            confidence = round(max(proba) * 100, 2)
 
         st.markdown("---")
         
         if result == 1:
             st.markdown('<div class="result-spam">🚨 SPAM DETECTED</div>', unsafe_allow_html=True)
-            st.metric("Confidence", f"{confidence}%")
             st.error("⚠️ This message appears to be **spam**. Do not click any links or share personal information.")
         else:
             st.markdown('<div class="result-ham">✅ NOT SPAM (Ham)</div>', unsafe_allow_html=True)
-            st.metric("Confidence", f"{confidence}%")
             st.success("✅ This message appears to be **legitimate**.")
 
         with st.expander("🔍 See Preprocessing Details"):
@@ -162,4 +155,6 @@ with st.sidebar:
     st.write("5. TF-IDF Vectorization")
     st.write("6. SVC Classification")
     st.markdown("---")
-    st.write("**Model:** SVC ")
+    st.write("**Model:** SVC")
+    st.write("**Accuracy:** 95.4%")
+    st.write("**Dataset:** https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset")
